@@ -1,5 +1,14 @@
-import { buildApp } from '../server/src/app';
+import type { IncomingMessage, ServerResponse } from 'node:http';
 
-const app = buildApp();
-
-export default app;
+export default function handler(req: IncomingMessage, res: ServerResponse) {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'application/json');
+  res.end(
+    JSON.stringify({
+      diagnostic: 'minimal handler reachable',
+      url: req.url,
+      method: req.method,
+      node: process.version,
+    }),
+  );
+}
