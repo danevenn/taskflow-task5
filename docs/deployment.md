@@ -11,7 +11,7 @@ Function** (Fluid Compute, runtime Node.js).
 ```
 /                       ← repositorio
 ├── api/
-│   └── [...all].ts     ← catch-all que delega en la app Express
+│   └── index.ts        ← función serverless que delega en la app Express
 ├── server/             ← código del backend (capas)
 ├── src/                ← código del frontend
 └── vercel.ts           ← configuración del deploy (TypeScript)
@@ -20,25 +20,29 @@ Function** (Fluid Compute, runtime Node.js).
 ## Archivo `vercel.ts`
 
 ```ts
-import type { VercelConfig } from '@vercel/config/v1';
+import { routes, type VercelConfig } from '@vercel/config/v1';
 
 export const config: VercelConfig = {
   framework: 'vite',
   buildCommand: 'npm run build:client',
   outputDirectory: 'dist',
+  rewrites: [
+    routes.rewrite('/api/(.*)', '/api'),
+  ],
 };
 
 export default config;
 ```
 
-`framework: 'vite'` deja que Vercel detecte Vite y haga el fallback SPA
-automáticamente (cualquier ruta no estática y no función → `index.html`).
-El catch-all `[...all]` dentro de `api/` se encarga de recibir cualquier
-petición `/api/...` y entregársela a Express, que enruta internamente.
+`framework: 'vite'` hace que Vercel construya el frontend con Vite y
+configure automáticamente el fallback SPA. El `rewrite` envía cualquier
+URL bajo `/api/...` a la función `api/index.ts`. Vercel preserva el URL
+original en `req.url`, así que Express puede enrutar internamente con
+`app.use('/api/v1', apiRouter)`.
 
 ## Punto de entrada serverless
 
-`api/[...all].ts`:
+`api/index.ts`:
 
 ```ts
 import { buildApp } from '../server/src/app';
@@ -48,9 +52,7 @@ export default app;
 ```
 
 Express implementa la firma `(req, res) => void` que Vercel Functions
-espera, así que se exporta tal cual. El URL original
-(`/api/v1/expenses`) llega intacto a Express, y `app.use('/api/v1',
-apiRouter)` hace el match.
+espera, así que se exporta tal cual.
 
 ## Variables de entorno
 
