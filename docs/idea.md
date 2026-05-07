@@ -77,6 +77,5 @@ deliberadamente sencillos.
 
 ## Repositorio
 
-El código vive en GitHub:
-`https://github.com/<tu-usuario>/dream-life-calculator` (sustituir por la URL
-real al hacer push del primer commit).
+- **Repositorio**: https://github.com/danevenn/testflow-task5
+- **Aplicación desplegada**: https://testflow-task5.vercel.app

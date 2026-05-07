@@ -5,7 +5,7 @@ Backend implementado con **Express 4** en
 (`routes` → `controllers` → `services`).
 
 - **Base URL en desarrollo**: `http://localhost:3001/api/v1`
-- **Base URL en producción**: `https://<tu-app>.vercel.app/api/v1`
+- **Base URL en producción**: `https://testflow-task5.vercel.app/api/v1`
 - **Formato**: JSON (`Content-Type: application/json`).
 
 Todas las respuestas de error siguen el mismo formato:

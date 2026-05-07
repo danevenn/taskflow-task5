@@ -20,23 +20,21 @@ Function** (Fluid Compute, runtime Node.js).
 ## Archivo `vercel.ts`
 
 ```ts
-import { routes, type VercelConfig } from '@vercel/config/v1';
+import type { VercelConfig } from '@vercel/config/v1';
 
 export const config: VercelConfig = {
   framework: 'vite',
   buildCommand: 'npm run build:client',
   outputDirectory: 'dist',
-  rewrites: [
-    routes.rewrite('/((?!api/).*)', '/index.html'),
-  ],
 };
 
 export default config;
 ```
 
-`framework: 'vite'` deja que Vercel detecte automáticamente Vite. El
-catch-all `[...all]` dentro de `api/` recibe cualquier petición
-`/api/...` y la entrega a Express, que enruta internamente.
+`framework: 'vite'` deja que Vercel detecte Vite y haga el fallback SPA
+automáticamente (cualquier ruta no estática y no función → `index.html`).
+El catch-all `[...all]` dentro de `api/` se encarga de recibir cualquier
+petición `/api/...` y entregársela a Express, que enruta internamente.
 
 ## Punto de entrada serverless
 
@@ -94,15 +92,9 @@ deploy a producción y cada push a otra rama crea un *preview*.
 
 ## URLs
 
-Una vez desplegado, las URLs serán:
-
-- **Frontend (producción)**: `https://<tu-app>.vercel.app`
-- **API (producción)**: `https://<tu-app>.vercel.app/api/v1/health`
+- **Frontend (producción)**: https://testflow-task5.vercel.app
+- **API (producción)**: https://testflow-task5.vercel.app/api/v1/health
 - **Frontend (preview)**: cada PR genera una URL `*-git-<branch>.vercel.app`.
-
-Sustituye `<tu-app>` por el slug real del proyecto en Vercel y añade ambas
-URLs al `README.md` y a la sección "URLs" de
-[idea.md](./idea.md).
 
 ## Comprobaciones post-deploy
 

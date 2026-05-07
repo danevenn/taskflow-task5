@@ -1,4 +1,4 @@
-import type { CalcRequestDTO, CalcResponseDTO } from '../types/dto.js';
+import type { CalcRequestDTO, CalcResponseDTO } from '../types/dto';
 
 const DEFAULT_TAX_RATE = 24;
 

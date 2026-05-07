@@ -13,10 +13,10 @@ y tus extras de estilo de vida.
 
 ## Enlaces
 
-- 🌐 **Aplicación en producción**: `https://<tu-app>.vercel.app` *(rellenar tras el deploy)*
-- 🔌 **API en producción**: `https://<tu-app>.vercel.app/api/v1/health`
+- 🌐 **Aplicación en producción**: https://testflow-task5.vercel.app
+- 🔌 **API en producción**: https://testflow-task5.vercel.app/api/v1/health
 - 📋 **Tablero de gestión (Trello)**: `https://trello.com/b/<id-del-tablero>/dream-life-calculator` *(rellenar)*
-- 📁 **Repositorio GitHub**: `https://github.com/<tu-usuario>/dream-life-calculator` *(rellenar)*
+- 📁 **Repositorio GitHub**: https://github.com/danevenn/testflow-task5
 
 ## Funcionalidades
 
@@ -61,8 +61,8 @@ y tus extras de estilo de vida.
 ## Setup local
 
 ```bash
-git clone https://github.com/<tu-usuario>/dream-life-calculator.git
-cd dream-life-calculator
+git clone https://github.com/danevenn/testflow-task5.git
+cd testflow-task5
 npm install
 npm run dev
 ```

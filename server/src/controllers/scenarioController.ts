@@ -1,11 +1,11 @@
 import type { Request, Response } from 'express';
-import { scenarioService } from '../services/scenarioService.js';
+import { scenarioService } from '../services/scenarioService';
 import {
   ensureValid,
   requireNumber,
   requireString,
-} from '../middleware/validate.js';
-import type { CreateScenarioDTO } from '../types/dto.js';
+} from '../middleware/validate';
+import type { CreateScenarioDTO } from '../types/dto';
 
 export const scenarioController = {
   list(_req: Request, res: Response) {

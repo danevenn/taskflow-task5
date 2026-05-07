@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { ExpenseDTO, ScenarioDTO } from '../types/dto.js';
+import type { ExpenseDTO, ScenarioDTO } from '../types/dto';
 
 interface DataStore {
   expenses: Map<string, ExpenseDTO>;

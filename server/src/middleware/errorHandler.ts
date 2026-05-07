@@ -1,5 +1,5 @@
 import type { ErrorRequestHandler } from 'express';
-import { ValidationError } from './validate.js';
+import { ValidationError } from './validate';
 
 export const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
   if (err instanceof ValidationError) {

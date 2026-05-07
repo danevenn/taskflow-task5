@@ -1,11 +1,11 @@
 import type { Request, Response } from 'express';
-import { calcService } from '../services/calcService.js';
+import { calcService } from '../services/calcService';
 import {
   ensureValid,
   optionalNumber,
   requireNumber,
-} from '../middleware/validate.js';
-import type { CalcRequestDTO } from '../types/dto.js';
+} from '../middleware/validate';
+import type { CalcRequestDTO } from '../types/dto';
 
 export const calcController = {
   compute(req: Request, res: Response) {
