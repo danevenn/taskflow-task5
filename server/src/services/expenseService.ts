@@ -1,10 +1,10 @@
 import { randomUUID } from 'node:crypto';
-import { store } from './store';
+import { store } from './store.js';
 import type {
   CreateExpenseDTO,
   ExpenseDTO,
   UpdateExpenseDTO,
-} from '../types/dto';
+} from '../types/dto.js';
 
 export const expenseService = {
   list(): ExpenseDTO[] {

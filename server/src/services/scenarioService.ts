@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
-import { store } from './store';
-import type { CreateScenarioDTO, ScenarioDTO } from '../types/dto';
+import { store } from './store.js';
+import type { CreateScenarioDTO, ScenarioDTO } from '../types/dto.js';
 
 export const scenarioService = {
   list(): ScenarioDTO[] {

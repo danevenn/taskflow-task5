@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { expenseRouter } from './expenseRoutes';
-import { scenarioRouter } from './scenarioRoutes';
-import { calcRouter } from './calcRoutes';
+import { expenseRouter } from './expenseRoutes.js';
+import { scenarioRouter } from './scenarioRoutes.js';
+import { calcRouter } from './calcRoutes.js';
 
 export const apiRouter = Router();
 

@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import { env } from './config/env';
-import { apiRouter } from './routes/index';
-import { errorHandler } from './middleware/errorHandler';
+import { env } from './config/env.js';
+import { apiRouter } from './routes/index.js';
+import { errorHandler } from './middleware/errorHandler.js';
 
 export const buildApp = () => {
   const app = express();

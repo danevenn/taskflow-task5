@@ -1,12 +1,12 @@
 import type { Request, Response } from 'express';
-import { expenseService } from '../services/expenseService';
+import { expenseService } from '../services/expenseService.js';
 import {
   ensureValid,
   requireNumber,
   requireString,
   optionalNumber,
-} from '../middleware/validate';
-import type { CreateExpenseDTO, UpdateExpenseDTO } from '../types/dto';
+} from '../middleware/validate.js';
+import type { CreateExpenseDTO, UpdateExpenseDTO } from '../types/dto.js';
 
 export const expenseController = {
   list(_req: Request, res: Response) {
