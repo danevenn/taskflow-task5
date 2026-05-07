@@ -9,12 +9,12 @@ Function** (Fluid Compute, runtime Node.js).
 ## Estructura del proyecto en Vercel
 
 ```
-/                  ← repositorio
-├── api/           ← punto de entrada de la función serverless
-│   └── index.ts   ← re-exporta la app Express con `export default app`
-├── server/        ← código del backend (capas)
-├── src/           ← código del frontend
-└── vercel.ts      ← configuración del deploy
+/                       ← repositorio
+├── api/
+│   └── [...all].ts     ← catch-all que delega en la app Express
+├── server/             ← código del backend (capas)
+├── src/                ← código del frontend
+└── vercel.ts           ← configuración del deploy (TypeScript)
 ```
 
 ## Archivo `vercel.ts`
@@ -27,27 +27,32 @@ export const config: VercelConfig = {
   buildCommand: 'npm run build:client',
   outputDirectory: 'dist',
   rewrites: [
-    routes.rewrite('/api/(.*)', '/api/$1'),
+    routes.rewrite('/((?!api/).*)', '/index.html'),
   ],
 };
+
+export default config;
 ```
 
-> Nota: si se usa la versión clásica `vercel.json`, su contenido equivalente
-> es el mismo `rewrites` y `framework: "vite"`.
+`framework: 'vite'` deja que Vercel detecte automáticamente Vite. El
+catch-all `[...all]` dentro de `api/` recibe cualquier petición
+`/api/...` y la entrega a Express, que enruta internamente.
 
 ## Punto de entrada serverless
 
-Crea `api/index.ts` (al lado de las carpetas `src/` y `server/`):
+`api/[...all].ts`:
 
 ```ts
 import { buildApp } from '../server/src/app';
 
-export default buildApp();
+const app = buildApp();
+export default app;
 ```
 
-Vercel detectará automáticamente el archivo y lo expondrá como una
-Vercel Function. Al adjuntar la app de Express directamente, se reusa la
-misma capa de routes/controllers/services del backend local.
+Express implementa la firma `(req, res) => void` que Vercel Functions
+espera, así que se exporta tal cual. El URL original
+(`/api/v1/expenses`) llega intacto a Express, y `app.use('/api/v1',
+apiRouter)` hace el match.
 
 ## Variables de entorno
 
