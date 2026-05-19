@@ -142,40 +142,80 @@ Body:
   "savingsGoalPct": 15,
   "investmentGoalPct": 10,
   "lifestyleExtras": 300,
+  "taxMode": "auto",
   "taxRatePct": 24
 }
 ```
 
-`taxRatePct` es opcional; si no se envía se usa 24.
+| Campo | Tipo | Obligatorio | Notas |
+|---|---|---|---|
+| `taxMode` | `"auto"` \| `"manual"` | No (default `"auto"`) | Modo de cálculo del IRPF. |
+| `taxRatePct` | number 0–80 | Solo en `manual` | Tipo plano. Ignorado en modo `auto`. |
 
 Respuesta `200`:
 
 ```json
 {
   "netMonthly": 2250,
-  "grossMonthly": 2960.53,
-  "grossYearly": 35526.32,
+  "grossMonthly": 3002.84,
+  "grossYearly": 36034.13,
+  "effectiveTaxRatePct": 25.07,
+  "taxMode": "auto",
   "breakdown": {
     "expenses": 1500,
     "savings": 270,
     "investments": 180,
     "lifestyle": 300,
-    "taxes": 710.53
+    "taxes": 752.84
   }
 }
 ```
 
+`effectiveTaxRatePct` es el tipo realmente aplicado (impuestos / bruto). En
+modo `manual` coincide con `taxRatePct`; en modo `auto` lo calcula el
+servidor según los tramos.
+
 ### Fórmula
 
+Cálculo base (común a ambos modos):
+
 ```
-base       = monthlyExpenses + lifestyleExtras
-savings    = base * (savingsGoalPct / 100)
-invest     = base * (investmentGoalPct / 100)
-net        = base + savings + invest
-gross      = net / (1 - taxRatePct/100)
-taxes      = gross - net
-yearGross  = gross * 12
+base    = monthlyExpenses + lifestyleExtras
+savings = base * (savingsGoalPct / 100)
+invest  = base * (investmentGoalPct / 100)
+net     = base + savings + invest
 ```
+
+**Modo `manual` (tipo plano):**
+
+```
+gross   = net / (1 - taxRatePct/100)
+taxes   = gross - net
+```
+
+**Modo `auto` (tramos IRPF España):**
+
+Se calcula sobre el bruto **anual** (`net * 12`) usando la escala estatal
+general:
+
+| Desde | Tipo marginal |
+|---|---|
+| 0 € | 19 % |
+| 12.450 € | 24 % |
+| 20.200 € | 30 % |
+| 35.200 € | 37 % |
+| 60.000 € | 45 % |
+| 300.000 € | 47 % |
+
+```
+grossYearly = inverso de net = gross - sum(tramos)
+grossMonthly = grossYearly / 12
+taxesMonthly = (grossYearly - netYearly) / 12
+```
+
+> Nota: la escala real combina la parte estatal (mitad) y la autonómica
+> (mitad), que varía por comunidad. La calculadora usa la escala estatal
+> de referencia. Cotizaciones a la Seguridad Social no se incluyen.
 
 ## Códigos HTTP usados
 

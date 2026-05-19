@@ -8,11 +8,15 @@ import {
   type ReactNode,
 } from 'react';
 
+import type { TaxMode } from '../types/api';
+
 export interface DreamLifeInputs {
   monthlyExpenses: number;
   savingsGoalPct: number;
   investmentGoalPct: number;
   lifestyleExtras: number;
+  /** 'auto' = tramos IRPF España; 'manual' = usa taxRatePct fijo. */
+  taxMode: TaxMode;
   taxRatePct: number;
 }
 
@@ -30,6 +34,7 @@ const defaultInputs: DreamLifeInputs = {
   savingsGoalPct: 15,
   investmentGoalPct: 10,
   lifestyleExtras: 300,
+  taxMode: 'auto',
   taxRatePct: 24,
 };
 

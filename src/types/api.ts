@@ -33,11 +33,14 @@ export interface CreateScenarioInput {
   lifestyleExtras: number;
 }
 
+export type TaxMode = 'auto' | 'manual';
+
 export interface CalcRequest {
   monthlyExpenses: number;
   savingsGoalPct: number;
   investmentGoalPct: number;
   lifestyleExtras: number;
+  taxMode?: TaxMode;
   taxRatePct?: number;
 }
 
@@ -53,6 +56,8 @@ export interface CalcResponse {
   netMonthly: number;
   grossMonthly: number;
   grossYearly: number;
+  effectiveTaxRatePct: number;
+  taxMode: TaxMode;
   breakdown: CalcBreakdown;
 }
 

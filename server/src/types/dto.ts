@@ -33,11 +33,16 @@ export interface CreateScenarioDTO {
   lifestyleExtras: number;
 }
 
+export type TaxMode = 'auto' | 'manual';
+
 export interface CalcRequestDTO {
   monthlyExpenses: number;
   savingsGoalPct: number;
   investmentGoalPct: number;
   lifestyleExtras: number;
+  /** 'auto' = aplica tramos IRPF España; 'manual' = usa taxRatePct fijo. */
+  taxMode?: TaxMode;
+  /** Tipo manual en %. Solo se usa cuando taxMode === 'manual'. */
   taxRatePct?: number;
 }
 
@@ -45,6 +50,9 @@ export interface CalcResponseDTO {
   netMonthly: number;
   grossMonthly: number;
   grossYearly: number;
+  /** Tipo efectivo realmente aplicado (impuestos / bruto). */
+  effectiveTaxRatePct: number;
+  taxMode: TaxMode;
   breakdown: {
     expenses: number;
     savings: number;

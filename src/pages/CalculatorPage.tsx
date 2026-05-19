@@ -4,10 +4,12 @@ import { SliderField } from '../components/SliderField';
 import { StatCard } from '../components/StatCard';
 import { ErrorView, LoadingView } from '../components/StateViews';
 import { Modal } from '../components/Modal';
+import { SegmentedToggle } from '../components/SegmentedToggle';
+import { IrpfBracketsTable } from '../components/IrpfBracketsTable';
 import { useDebouncedValue } from '../hooks/useDebouncedValue';
 import { useDreamLife } from '../context/DreamLifeContext';
 import { formatCurrency } from '../utils/format';
-import type { CalcResponse } from '../types/api';
+import type { CalcResponse, TaxMode } from '../types/api';
 
 export const CalculatorPage = () => {
   const { inputs, setInputs, resetInputs } = useDreamLife();
@@ -150,16 +152,39 @@ export const CalculatorPage = () => {
           suffix="€"
           hint="Vacaciones, hobbies, salidas..."
         />
-        <SliderField
-          id="tax"
-          label="Tipo impositivo estimado"
-          value={inputs.taxRatePct}
-          onChange={(v) => setInputs({ taxRatePct: v })}
-          min={0}
-          max={55}
-          suffix="%"
-          hint="Aproximación de IRPF + cotizaciones"
-        />
+        <div className="space-y-3 rounded-lg border border-slate-200 p-3">
+          <SegmentedToggle<TaxMode>
+            label="Cálculo del IRPF"
+            value={inputs.taxMode}
+            onChange={(v) => setInputs({ taxMode: v })}
+            options={[
+              {
+                value: 'auto',
+                label: 'Auto · tramos España',
+                hint: 'Calcula el IRPF aplicando los tramos oficiales sobre el bruto anual',
+              },
+              {
+                value: 'manual',
+                label: 'Manual · % fijo',
+                hint: 'Aplica un tipo plano que tú eliges',
+              },
+            ]}
+          />
+          {inputs.taxMode === 'manual' ? (
+            <SliderField
+              id="tax"
+              label="Tipo impositivo manual"
+              value={inputs.taxRatePct}
+              onChange={(v) => setInputs({ taxRatePct: v })}
+              min={0}
+              max={55}
+              suffix="%"
+              hint="Aproximación plana de IRPF + cotizaciones"
+            />
+          ) : (
+            <IrpfBracketsTable highlightYearlyGross={data?.grossYearly} />
+          )}
+        </div>
 
         <div className="flex gap-2 pt-2">
           <button
@@ -195,7 +220,11 @@ export const CalculatorPage = () => {
                 label="Salario bruto/mes"
                 value={formatCurrency(data.grossMonthly)}
                 accent="brand"
-                hint={`con ${inputs.taxRatePct}% impositivo`}
+                hint={
+                  data.taxMode === 'auto'
+                    ? `${data.effectiveTaxRatePct.toFixed(1)}% efectivo (tramos España)`
+                    : `${data.effectiveTaxRatePct.toFixed(1)}% impositivo (manual)`
+                }
               />
               <StatCard
                 label="Bruto anual"

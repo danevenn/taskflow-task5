@@ -88,6 +88,40 @@ Contiene un botón de cierre con `aria-label="Cerrar"`.
 - **Detalles**: usa `role="dialog"` y `aria-modal="true"`. El click dentro
   del contenido no propaga al overlay.
 
+## `SegmentedToggle<T>`
+
+Toggle segmentado tipado por genérico. Útil para alternar entre 2–4
+opciones mutuamente excluyentes (modo claro/oscuro, auto/manual, etc.).
+
+```tsx
+<SegmentedToggle<TaxMode>
+  label="Cálculo del IRPF"
+  value={mode}
+  onChange={setMode}
+  options={[
+    { value: 'auto', label: 'Auto · tramos España' },
+    { value: 'manual', label: 'Manual · % fijo' },
+  ]}
+/>
+```
+
+- **Props**: `label?`, `value`, `onChange(value)`, `options`, `hint?`.
+- **Accesibilidad**: usa `role="radiogroup"` y `role="radio"` con
+  `aria-checked` por opción.
+- **Reutilizable**: el tipo del valor es un genérico `<T extends string>`,
+  así que se puede instanciar con cualquier *union* de strings sin perder
+  la inferencia de tipos.
+
+## `IrpfBracketsTable`
+
+Tabla informativa con los tramos oficiales del IRPF en España. Resalta el
+tramo correspondiente al `grossYearly` actual.
+
+- **Props**: `highlightYearlyGross?: number`.
+- Aparece en la calculadora cuando el usuario elige el modo de IRPF
+  **automático**. Refleja la misma escala que el helper del backend en
+  [`server/src/services/irpfBrackets.ts`](../server/src/services/irpfBrackets.ts).
+
 ## `StateViews` (`LoadingView`, `ErrorView`, `EmptyView`)
 
 Tres pequeños componentes que cubren los estados de red estándar:
