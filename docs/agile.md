@@ -128,9 +128,11 @@ ligeras de Scrum + tablero estilo Kanban con WIP limits.
 
 ## Aplicación a este proyecto
 
-Para Dream Life Calculator se utilizó un enfoque **Kanban** sobre un tablero
-de Trello con tres columnas (`Por hacer`, `En progreso`, `Hecho`). Se
-explica con más detalle en [project-management.md](./project-management.md).
+Para Dream Life Calculator se utilizó un enfoque **Kanban informal** con
+tres estados conceptuales (`Por hacer`, `En progreso`, `Hecho`) gestionado
+dentro del propio repositorio, sin herramientas externas. Se explica con
+más detalle en [project-management.md](./project-management.md).
+
 La razón principal: al trabajar en solitario y con tareas muy variadas
 (documentación, código, despliegue), tener un sprint fijo añadía ceremonia
-sin valor real. Un flujo continuo con WIP limit de 2 fue más eficiente.
+sin valor real. Un flujo continuo con WIP limit de 1–2 fue más eficiente.

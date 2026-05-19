@@ -1,27 +1,36 @@
 # Gestión del proyecto
 
-## Tablero
+## Organización del trabajo
 
-Para organizar el trabajo de Dream Life Calculator se utiliza un tablero de
-**Trello** público. La URL debe colocarse en el `README.md` y en este
-documento. Sustituye el placeholder antes de hacer push:
+El proyecto Dream Life Calculator se ha desarrollado en solitario sin
+herramientas externas de gestión de tareas. La planificación y el
+seguimiento viven dentro del propio repositorio:
 
-> **Tablero**: `https://trello.com/b/<id-del-tablero>/dream-life-calculator`
+- **Backlog** y estado de las tareas: la tabla "Backlog inicial" más abajo
+  en este mismo documento.
+- **Historial de cambios**: los commits del repositorio, con mensajes
+  descriptivos del *qué* y del *por qué*.
+- **Discusiones de diseño**: la carpeta [`docs/`](.) — cada decisión
+  importante queda escrita.
+
+Esta aproximación encaja con el estilo de proyectos solo: el coste de
+mantener un tablero externo sincronizado con el repo no compensa cuando
+ambos los lleva la misma persona.
 
 ## Metodología elegida: Kanban ligero
 
-Como el proyecto es individual y las tareas son muy heterogéneas (documentación,
-código frontend, código backend, despliegue), se ha optado por **Kanban**
-con tres columnas:
+Como el proyecto es individual y las tareas son muy heterogéneas
+(documentación, código frontend, código backend, despliegue), se ha
+optado por un **Kanban informal** con tres estados conceptuales:
 
 1. **Por hacer (To Do)**: tareas pendientes priorizadas de arriba hacia abajo.
-2. **En progreso (In Progress)**: tareas en las que se está trabajando ahora
-   mismo. **WIP limit = 2** para evitar el cambio de contexto excesivo.
+2. **En progreso (In Progress)**: tarea en la que estoy trabajando ahora
+   mismo. **WIP limit = 1–2** para evitar el cambio de contexto excesivo.
 3. **Hecho (Done)**: tareas completadas y verificadas.
 
 Razones para descartar Scrum:
 
-- No tengo Product Owner externo: yo decido qué hacer.
+- No hay Product Owner externo: yo decido qué hacer.
 - Las tareas no se prestan a sprints rígidos de dos semanas; algunas son de
   10 minutos (escribir un README), otras de medio día.
 - Las ceremonias de Scrum (planning, daily, review, retro) tendrían poco
@@ -43,12 +52,12 @@ Razones para descartar Scrum:
 | 10 | Componentes reutilizables (Layout, StatCard, SliderField, Modal, ...) | Done |
 | 11 | Documentación en docs/ | Done |
 | 12 | Tests con vitest | Done |
-| 13 | Despliegue en Vercel | Pendiente |
-| 14 | Retrospectiva final | Pendiente |
+| 13 | Despliegue en Vercel | Done |
+| 14 | Retrospectiva final | Done |
 
 ## Definición de "Hecho" (Definition of Done)
 
-Una tarea solo se mueve a *Done* si cumple todos los puntos aplicables:
+Una tarea solo se considera *Done* si cumple todos los puntos aplicables:
 
 - [ ] El código compila sin warnings de TypeScript.
 - [ ] El componente o endpoint se ha probado manualmente.
@@ -59,11 +68,12 @@ Una tarea solo se mueve a *Done* si cumple todos los puntos aplicables:
 
 ## Flujo diario
 
-1. Mirar la columna *In Progress*: ¿hay algo bloqueado?
-2. Si una tarea está terminada, validarla contra la DoD y moverla a *Done*.
-3. Coger la tarea de mayor prioridad de *To Do* y moverla a *In Progress*.
+1. Revisar qué tarea estaba *In Progress* la sesión anterior.
+2. Si está terminada, validarla contra la DoD y marcarla como *Done*.
+3. Coger la tarea de mayor prioridad de *To Do* y pasarla a *In Progress*.
 4. Trabajar en ella hasta acabar o quedar bloqueada.
-5. Antes de cerrar la sesión, anotar en la tarjeta lo que falta.
+5. Antes de cerrar la sesión, dejar una nota mental (o en commit) de lo
+   que falta.
 
 ## Métricas
 
@@ -71,4 +81,5 @@ Una tarea solo se mueve a *Done* si cumple todos los puntos aplicables:
   llega a *Done*.
 - **Throughput**: tareas completadas por semana.
 
-Estas métricas se anotan informalmente en cada tarjeta de Trello.
+En un proyecto en solitario estas métricas son orientativas, no objetivos
+duros. Sirven para detectar tareas que se atascan más de lo esperado.

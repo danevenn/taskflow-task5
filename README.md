@@ -13,10 +13,9 @@ y tus extras de estilo de vida.
 
 ## Enlaces
 
-- 🌐 **Aplicación en producción**: https://testflow-task5.vercel.app
-- 🔌 **API en producción**: https://testflow-task5.vercel.app/api/v1/health
-- 📋 **Tablero de gestión (Trello)**: `https://trello.com/b/<id-del-tablero>/dream-life-calculator` *(rellenar)*
-- 📁 **Repositorio GitHub**: https://github.com/danevenn/testflow-task5
+- 🌐 **Aplicación en producción**: https://taskflow-task5.vercel.app
+- 🔌 **API en producción**: https://taskflow-task5.vercel.app/api/v1/health
+- 📁 **Repositorio GitHub**: https://github.com/danevenn/taskflow-task5
 
 ## Funcionalidades
 
@@ -61,8 +60,8 @@ y tus extras de estilo de vida.
 ## Setup local
 
 ```bash
-git clone https://github.com/danevenn/testflow-task5.git
-cd testflow-task5
+git clone https://github.com/danevenn/taskflow-task5.git
+cd taskflow-task5
 npm install
 npm run dev
 ```

@@ -77,5 +77,5 @@ deliberadamente sencillos.
 
 ## Repositorio
 
-- **Repositorio**: https://github.com/danevenn/testflow-task5
-- **Aplicación desplegada**: https://testflow-task5.vercel.app
+- **Repositorio**: https://github.com/danevenn/taskflow-task5
+- **Aplicación desplegada**: https://taskflow-task5.vercel.app
